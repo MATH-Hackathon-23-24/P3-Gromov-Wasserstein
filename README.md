@@ -11,3 +11,9 @@ we will employ linear and multi-marginal methods.
 In an effort to account for outliers, data labels and prior information, 
 we seek to incorporate several generalizations 
 such as unbalanced, fused and keypoint-guided GW.
+
+## Datasets
+* [MPI FAUST](https://faust-leaderboard.is.tuebingen.mpg.de/)
+* [Deformation Transfer Meshes](http://people.csail.mit.edu/sumner/research/deftransfer/data.html)
+* [The 2D Shape Structure Dataset](https://2dshapesstructure.github.io/)
+* [GraKeL](https://ysig.github.io/GraKeL/0.1a8/index.html) ([Benchmark Datasets](https://ls11-www.cs.tu-dortmund.de/staff/morris/graphkerneldatasets))
