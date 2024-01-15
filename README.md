@@ -26,6 +26,6 @@ such as unbalanced, fused and keypoint-guided GW.
 ## Useful Paper
 * F. Mémoli. [Gromov–Wasserstein Distances and the Metric Approach to Object Matching](https://media.adelaide.edu.au/acvt/Publications/2011/2011-Gromov%E2%80%93Wasserstein%20Distances%20and%20the%20Metric%20Approach%20to%20Object%20Matching.pdf).
 * X. Gu, Y. Yang, W. Zeng, J. Sun, Z. Xu. [Keypoint-Guided Optimal Transport](https://arxiv.org/pdf/2303.13102.pdf).
-* T. Vayer, L. Chapel, R. Flamary, R. Tavenard, N. Courty. [Fused Gromov-Wasserstein Distance for Structured Objects](file:///home/beinert/Downloads/algorithms-13-00212-v2.pdf). 
+* T. Vayer, L. Chapel, R. Flamary, R. Tavenard, N. Courty. [Fused Gromov-Wasserstein Distance for Structured Objects](https://www.mdpi.com/1999-4893/13/9/212/pdf?version=1599119885). 
 * G. Peyré, M. Cuturi, J. Solomon. [Gromov-Wasserstein Averaging of Kernel and Distance Matrices](http://proceedings.mlr.press/v48/peyre16.pdf).
 * F. Beier, R. Beinert, G. Steidl. [On a linear Gromov–Wasserstein distance](https://arxiv.org/pdf/2112.11964.pdf).
