@@ -1,0 +1,121 @@
+---
+title: TES Small Data Hackathon 2024
+author:
+    - name: Florian Beier
+      affiliation: "Technische Universität Berlin"
+    - name: Robert Beinert
+      affiliation: "Technische Universität Berlin"
+    - name: Alonso Cisneros
+      affiliation: "Zuse Institute Berlin"
+    - name: Toluwa Okunola
+      affiliation: "Technische Universität Berlin"
+    - name: Maksym Dolgikh
+      affiliation: "Freie Universität Berlin"
+format:
+    revealjs:
+        theme: default
+        html_math_method: mathjax
+execute: 
+  echo: false
+jupyter: python3
+---
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn import manifold, cluster
+import plotly.express as px
+import ot
+import trimesh
+# import open3d as o3d
+import utils
+from utils import GM
+# from tqdm import trange
+
+#plotting
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
+
+from pathlib import Path
+```
+
+
+# Intro
+
+## Theory
+
+## Wasserstein Distance
+
+...
+
+- Extremely computationally expensive
+
+- Sensitive to orientation
+
+## Gromov-Wasserstein Distance
+
+...
+
+- Dependent only on the geometry of the object
+    - e.g. orientation invariant, pose invariant (somewhat)
+
+- Even more computationally expensive.
+
+# The problem
+
+- Classification/Clustering of shapes via their pairwise Gromov--Wasserstein
+distance.
+
+- 
+
+## The dataset
+
+show some models of 2d & 3d
+
+## Some transport plans
+
+## Drawbacks of full Gromov-Wasserstein
+
+- Very accurate but extremely computationally expensive
+
+- Takes around 1 hr 5 min to compute pairwise G-W distance between figures with 500
+nodes.
+
+
+## Taming computational complexity
+
+- Linearized Gromov--Wasserstein (LGV)
+    - Less accurate but much easier to compute
+
+- The same pairwise distance calculation took 13 min (vs more than 1 hr)
+    - 5x reduction in time
+
+# Results
+
+
+```{python}
+m_bodies = np.load("aggregated_distances_lgw_sqd500.npy")
+names = np.load("image_names.npy")
+animals = ['camel', 'cat', 'elephant', 'face', 'flamingo', 'head', 'horse', 'lion']
+avg = np.min(m_bodies, axis=0)
+mds = manifold.MDS(
+    n_components=3,
+    max_iter=3000,
+    eps=1e-9,
+    dissimilarity="precomputed",
+    n_jobs=1,
+)
+pos = mds.fit(avg).embedding_
+kmeans = cluster.KMeans(n_clusters=8, random_state=0, n_init="auto").fit(pos)
+# plt.scatter(pos[:, 0], pos[:, 1], c = kmeans.labels_)
+px.scatter_3d(x=pos[:, 0], y=pos[:, 1], z=pos[:, 2], color = kmeans.labels_)
+```
+
+# Possible future work
+
+- One random animal as reference per class. We could possibly choose a "model"
+reference animal per class.
+
+- Inference can be implemented by calculating "barycenters" of classes and
+computing distance to them. The inferred class would be the one whose barycenter
+is the closest.
