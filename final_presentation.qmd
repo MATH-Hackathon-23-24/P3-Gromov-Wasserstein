@@ -140,6 +140,11 @@ distance.
 
 ## The dataset
 
+![Some other example shapes from Mesh Data from Deformation Transfer for Triangle Meshes (Summer, Popovic)](figs/animal_collection.png)
+
+
+## Transport plans
+
 ```{python}
 
 width = 500
@@ -189,9 +194,6 @@ fig = go.FigureWidget(fig)
 fig.show()
 ```
 
-##
-
-![Some other example shapes from Mesh Data from Deformation Transfer for Triangle Meshes (Summer, Popovic)](figs/animal_collection.png)
 
 ## Drawbacks of full Gromov-Wasserstein
 
