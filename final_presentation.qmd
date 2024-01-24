@@ -1,5 +1,6 @@
 ---
 title: TES Small Data Hackathon 2024
+subtitle: Gromov–-Wasserstein-Based Shape, Graph and Image Analysis
 author:
     - name: Florian Beier
       affiliation: "Technische Universität Berlin"
@@ -19,9 +20,6 @@ format:
 execute: 
   echo: false
 jupyter: python3
-project:
-  type: default
-  output-dir: docs
 ---
 
 ```{python}
@@ -34,7 +32,6 @@ import trimesh
 import open3d as o3d
 import utils
 from utils import GM
-from utils_lgw import lgw_procedure
 # from tqdm import trange
 
 #plotting
@@ -124,9 +121,13 @@ for all measurable $A \subset X$, $B \subset Y$.
 
 The **Gromov--Wasserstein distance** between $\mathbb{X} = (X,d_X,\mu)$ and
 $\mathbb{Y} = (Y,d_Y,\nu)$ is given by:
+
+::: {.smaller}
 $$
-\operatorname{GW}(\mathbb{X},\mathbb{Y}) := \inf_{\pi \in \Pi(\mu,\nu)} \biggl(\int_{(X \times Y)^2} \bigl(d_X(x,x') - d_Y(y,y')\bigr)^2 \mathrm{d}x \, \pi(x,y) \mathrm{d}x \, \pi(x',y') \biggr)^\frac{1}{2}.
+\operatorname{GW}(\mathbb{X},\mathbb{Y}) := \displaystyle \inf_{\pi \in \Pi(\mu,\nu)} \biggl(\int_{(X \times Y)^2} \bigl(d_X(x,x') - d_Y(y,y')\bigr)^2 \mathrm{d}x \, \pi(x,y) \mathrm{d}x \, \pi(x',y') \biggr)^\frac{1}{2}.
 $$
+
+:::
 
 - Dependent only on the geometry of the object
     - e.g. orientation invariant, pose invariant (somewhat)
@@ -230,6 +231,21 @@ kmeans = cluster.KMeans(n_clusters=8, random_state=0, n_init="auto").fit(pos)
 # plt.scatter(pos[:, 0], pos[:, 1], c = kmeans.labels_)
 px.scatter_3d(x=pos[:, 0], y=pos[:, 1], z=pos[:, 2], color = kmeans.labels_)
 ```
+
+## Classification results
+
+::: {.panel-tabset}
+
+### G--W
+![](figs/gw.png)
+
+### Agg. Linearized G--W {.smaller}
+![](figs/algw.png)
+
+### Linearized G--W {.smaller}
+![](figs/lgw.png)
+
+:::
 
 # Possible future work
 
