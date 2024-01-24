@@ -146,6 +146,7 @@ distance.
 ## Transport plans
 
 ```{python}
+#| fig-align: center
 
 width = 500
 height = 500
@@ -213,11 +214,9 @@ nodes.
 
 # Results
 
-- Computing GW distances and then using Multidimensional Scaling (MDS) to embedd into 3d space.
-
-. . .
-
 ```{python}
+#| fig-cap: Computing GW distances and embedding via Multidimensional Scaling
+
 m_bodies = np.load("aggregated_distances_lgw_sqd500.npy")
 names = np.load("image_names.npy")
 animals = ['camel', 'cat', 'elephant', 'face', 'flamingo', 'head', 'horse', 'lion']
