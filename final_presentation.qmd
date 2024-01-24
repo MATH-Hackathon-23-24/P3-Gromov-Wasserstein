@@ -215,6 +215,7 @@ nodes.
 m_bodies = np.load("aggregated_distances_lgw_sqd500.npy")
 names = np.load("image_names.npy")
 animals = ['camel', 'cat', 'elephant', 'face', 'flamingo', 'head', 'horse', 'lion']
+animals_nd = np.asanyarray(animals)
 avg = np.min(m_bodies, axis=0)
 mds = manifold.MDS(
     n_components=3,
