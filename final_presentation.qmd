@@ -105,7 +105,7 @@ _transport plans_ $\pi$ with marginal $\mu$, $\nu$
 
 - The _Wasserstein distance_ is defined as
 $$
-W(\mu,\nu) \coloneqq \inf_{\pi \in \Pi(\mu,\nu)} \biggl(\int_{X \times Y} \|x-y\|_2^2 \dx \pi(x,y) \biggr)^{\frac{1}{2}}.
+W(\mu,\nu) := \inf_{\pi \in \Pi(\mu,\nu)} \biggl(\int_{X \times Y} \|x-y\|_2^2 \mathrm{d}x \pi(x,y) \biggr)^{\frac{1}{2}}.
 $$
 
 - Sensitive to orientation
@@ -187,8 +187,7 @@ fig.show()
 
 ##
 
-![Some other example shapes from Mesh Data from
-Deformation Transfer for Triangle Meshes (Summer, Popovic)](figs/animal_collection.png)
+![Some other example shapes from Mesh Data from Deformation Transfer for Triangle Meshes (Summer, Popovic)](figs/animal_collection.png)
 
 ## Drawbacks of full Gromov-Wasserstein
 
