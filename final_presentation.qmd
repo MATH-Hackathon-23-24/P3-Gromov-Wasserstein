@@ -101,14 +101,12 @@ Euclidean shapes.
 \mathcal{P}_2(Y)$.
 
 - Let $\Pi(\mu, \nu) \subset \mathcal{P}(X \times Y)$ denote the set of all
-_transport plans_ $\pi$ with marginal $\mu$, $\nu$, i.e.
+_transport plans_ $\pi$ with marginal $\mu$, $\nu$
+
+- The _Wasserstein distance_ is defined as
 $$
-\begin{align*}
-(P_X)_\# \pi (A) &:= \pi(P_X^{-1} A) = \pi(A \times Y) = \mu(A) \\
-(P_Y)_\# \pi(B) &= \nu(B)
-\end{align*}
+W(\mu,\nu) \coloneqq \inf_{\pi \in \Pi(\mu,\nu)} \biggl(\int_{X \times Y} \|x-y\|_2^2 \dx \pi(x,y) \biggr)^{\frac{1}{2}}.
 $$
-for all measurable $A \subset X$, $B \subset Y$.
 
 - Sensitive to orientation
 
@@ -186,6 +184,27 @@ fig.update_layout(showlegend=False)  #  ,width=width,height=height)
 fig = go.FigureWidget(fig)
 fig.show()
 ```
+
+##
+
+![Some other example shapes from Mesh Data from
+Deformation Transfer for Triangle Meshes (Summer, Popovic)](figs/animal_collection.png)
+
+## Drawbacks of full Gromov-Wasserstein
+
+- Very accurate but extremely computationally expensive
+
+- Takes around 1 hr 5 min to compute pairwise G-W distance between 83 figures with 500
+nodes.
+
+
+## Taming computational complexity
+
+- Linearized Gromov--Wasserstein (LGW)
+    - Less accurate but much easier to compute
+
+- The same pairwise distance calculation took 13 min (vs more than 1 hr)
+    - 5x reduction in time
 
 # Results
 
