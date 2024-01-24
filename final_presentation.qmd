@@ -110,7 +110,7 @@ $$
 $$
 for all measurable $A \subset X$, $B \subset Y$.
 
-- Extremely computationally expensive
+- Computationally expensive
 
 - Sensitive to orientation
 
@@ -193,13 +193,13 @@ fig.show()
 
 - Very accurate but extremely computationally expensive
 
-- Takes around 1 hr 5 min to compute pairwise G-W distance between figures with 500
+- Takes around 1 hr 5 min to compute pairwise G-W distance between 83 figures with 500
 nodes.
 
 
 ## Taming computational complexity
 
-- Linearized Gromov--Wasserstein (LGV)
+- Linearized Gromov--Wasserstein (LGW)
     - Less accurate but much easier to compute
 
 - The same pairwise distance calculation took 13 min (vs more than 1 hr)
@@ -248,7 +248,9 @@ px.scatter_3d(x=pos[:, 0], y=pos[:, 1], z=pos[:, 2], color = kmeans.labels_, hov
 # Possible future work
 
 - One random animal as reference per class. We could possibly choose a "model"
-reference animal per class.
+reference animal per class. Or reduce the number of references.
+
+- Try bigger datasets.
 
 - Inference can be implemented by calculating "barycenters" of classes and
 computing distance to them. The inferred class would be the one whose barycenter
