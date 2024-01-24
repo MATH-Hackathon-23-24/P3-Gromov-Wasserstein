@@ -30,6 +30,7 @@ import trimesh
 # import open3d as o3d
 import utils
 from utils import GM
+from utils_lgw import lgw_procedure
 # from tqdm import trange
 
 #plotting
@@ -37,6 +38,57 @@ import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 
 from pathlib import Path
+```
+
+
+```{python}
+models_path = Path.cwd()/'data/models'
+
+def GM_short(mesh):
+    return GM(X=mesh.vertices,
+              Tris=mesh.faces,
+              mode="surface",
+              gauge_mode="djikstra",
+              normalize_gauge=True,
+              squared=False)
+```
+
+
+```{python}
+sqd = 1000 #parameter for mesh simplification
+
+#LOAD ANIMALS dataset
+animals = ['camel', 'cat', 'elephant', 'face', 'flamingo', 'head', 'horse', 'lion']
+meshes_animals = []
+names = []
+for animal in animals:
+    counter = 1
+    pathlist = (models_path/f"{animal}-poses").rglob('*.obj')
+    for path_to_obj in pathlist:
+        filepath = str(path_to_obj)
+        pcd = o3d.io.read_triangle_mesh(filepath)
+        mesh = trimesh.Trimesh(vertices=pcd.vertices,faces = pcd.triangles)
+
+        #simplifiy mesh
+        mesh = mesh.simplify_quadric_decimation(sqd)
+
+        #append mesh to list
+        meshes_animals.append(mesh)
+        names.append(animal + str(counter).zfill(2))
+        counter += 1
+```
+
+
+```{python}
+#choose gm-spaces
+i, j = 0, 1
+
+X = GM_short(meshes_animals[i])
+Y = GM_short(meshes_animals[j])
+
+#compute GW Plan
+P,log = ot.gromov.gromov_wasserstein(X.g,Y.g,X.xi,Y.xi,log=True)
+print("GW Transport costs: {0}".format(log["gw_dist"]))
 ```
 
 
@@ -73,6 +125,50 @@ distance.
 show some models of 2d & 3d
 
 ## Some transport plans
+
+```{python}
+#colour-code X
+cX = np.linalg.norm(X.X - np.min(X.X),axis=1)
+#colour-code Y according to transport P
+cY = (P.T / np.sum(P,axis=1)).dot(cX)
+
+#plot
+fig = make_subplots(rows=1, cols=2,
+               specs=[[{'type': 'scene'}] * 2],shared_xaxes=True)
+#plot X
+fig.add_trace(
+    go.Mesh3d(
+    x=X.X[:,0], y=X.X[:,1], z=X.X[:,2],
+    # Intensity of each vertex, which will be interpolated and color-coded
+    intensity=cX,
+    # i, j and k give the vertices of triangles
+    i=X.Tris[:,0], j=X.Tris[:,1], k=X.Tris[:,2],
+    showscale=False,
+    lighting=dict(ambient=ambient)
+),
+    row = 1, col = 1
+)
+
+#plot Y
+fig.add_trace(
+    go.Mesh3d(
+    x=Y.X[:,0], y=Y.X[:,1], z=Y.X[:,2],
+    # Intensity of each vertex, which will be interpolated and color-coded
+    intensity=cY,
+    # i, j and k give the vertices of triangles
+    i=Y.Tris[:,0], j=Y.Tris[:,1], k=Y.Tris[:,2],
+    showscale=False,
+    lighting=dict(ambient=ambient)
+),
+    row = 1, col = 2
+)
+
+fig.update_scenes(aspectmode='data')
+fig.update_layout(showlegend=False,width=width,height=height)
+
+fig = go.FigureWidget(fig)
+fig.show()
+```
 
 ## Drawbacks of full Gromov-Wasserstein
 
