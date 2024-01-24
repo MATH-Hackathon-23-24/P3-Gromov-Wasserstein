@@ -88,7 +88,7 @@ P,log = ot.gromov.gromov_wasserstein(X.g,Y.g,X.xi,Y.xi,log=True)
 
 # Intro
 
-- The Gromov–Wasserstein (GW) distance is an optimal transport-based metric,
+- The Gromov-Wasserstein (GW) distance is an optimal transport-based metric,
   - allows for embedding-free comparisons and
   - matchings of gauged measure spaces (like 3d shapes)
 
@@ -110,9 +110,9 @@ $$
 $$
 for all measurable $A \subset X$, $B \subset Y$.
 
-- Computationally expensive
-
 - Sensitive to orientation
+
+- Computationally expensive
 
 ## Gromov-Wasserstein Distance
 
@@ -135,8 +135,6 @@ $$
 
 - Classification/Clustering of shapes via their pairwise Gromov--Wasserstein
 distance.
-
-- 
 
 ## The dataset
 
@@ -189,22 +187,6 @@ fig = go.FigureWidget(fig)
 fig.show()
 ```
 
-## Drawbacks of full Gromov-Wasserstein
-
-- Very accurate but extremely computationally expensive
-
-- Takes around 1 hr 5 min to compute pairwise G-W distance between 83 figures with 500
-nodes.
-
-
-## Taming computational complexity
-
-- Linearized Gromov--Wasserstein (LGW)
-    - Less accurate but much easier to compute
-
-- The same pairwise distance calculation took 13 min (vs more than 1 hr)
-    - 5x reduction in time
-
 # Results
 
 - Computing GW distances and then using Multidimensional Scaling (MDS) to embedd into 3d space.
@@ -244,6 +226,22 @@ px.scatter_3d(x=pos[:, 0], y=pos[:, 1], z=pos[:, 2], color = kmeans.labels_, hov
 ![](figs/lgw.png)
 
 :::
+
+## Drawbacks of full Gromov-Wasserstein
+
+- Very accurate but extremely computationally expensive
+
+- Takes around 1 hr 5 min to compute pairwise G-W distance between 83 figures with 500
+nodes.
+
+
+## Taming computational complexity
+
+- Linearized Gromov--Wasserstein (LGW)
+    - Less accurate but much easier to compute
+
+- The same pairwise distance calculation took 13 min (vs more than 1 hr)
+    - 5x reduction in time
 
 # Possible future work
 
