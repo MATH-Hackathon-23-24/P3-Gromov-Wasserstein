@@ -112,6 +112,10 @@ $$
 
 - Computationally expensive
 
+## 
+
+![](figs/camels_2d_wasserstein.png)
+
 ## Gromov-Wasserstein Distance
 
 The **Gromov--Wasserstein distance** between $\mathbb{X} = (X,d_X,\mu)$ and
