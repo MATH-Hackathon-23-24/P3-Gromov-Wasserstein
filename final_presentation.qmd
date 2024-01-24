@@ -56,40 +56,32 @@ def GM_short(mesh):
 
 
 ```{python}
-sqd = 1000 #  parameter for mesh simplification
+sqd = 1000 #parameter for mesh simplification
 
 #LOAD ANIMALS dataset
-animals = ['camel', 'cat', 'elephant', 'face', 'flamingo', 'head', 'horse', 'lion']
 meshes_animals = []
-names = []
-for animal in animals:
-    counter = 1
-    pathlist = (models_path/f"{animal}-poses").rglob('*.obj')
-    for path_to_obj in pathlist:
-        filepath = str(path_to_obj)
-        pcd = o3d.io.read_triangle_mesh(filepath)
-        mesh = trimesh.Trimesh(vertices=pcd.vertices,faces = pcd.triangles)
+pathlist_all = list((models_path/f"lion-poses").rglob('*.obj'))
+pathlist = (pathlist_all[1], pathlist_all[8])
+for path_to_obj in pathlist:
+    filepath = str(path_to_obj)
+    pcd = o3d.io.read_triangle_mesh(filepath)
+    mesh = trimesh.Trimesh(vertices=pcd.vertices,faces = pcd.triangles)
 
-        #simplifiy mesh
-        mesh = mesh.simplify_quadric_decimation(sqd)
+    #simplifiy mesh
+    mesh = mesh.simplify_quadric_decimation(sqd)
 
-        #append mesh to list
-        meshes_animals.append(mesh)
-        names.append(animal + str(counter).zfill(2))
-        counter += 1
+    #append mesh to list
+    meshes_animals.append(mesh)
 ```
 
 
 ```{python}
 #choose gm-spaces
-i, j = 0, 1
-
-X = GM_short(meshes_animals[i])
-Y = GM_short(meshes_animals[j])
+X = GM_short(meshes_animals[0])
+Y = GM_short(meshes_animals[1])
 
 #compute GW Plan
 P,log = ot.gromov.gromov_wasserstein(X.g,Y.g,X.xi,Y.xi,log=True)
-print("GW Transport costs: {0}".format(log["gw_dist"]))
 ```
 
 
@@ -163,11 +155,11 @@ fig = make_subplots(rows=1, cols=2,
 #plot X
 fig.add_trace(
     go.Mesh3d(
-    x=X.X[:,0], y=X.X[:,1], z=X.X[:,2],
+    y=X.X[:,0], z=X.X[:,1], x=X.X[:,2],
     # Intensity of each vertex, which will be interpolated and color-coded
     intensity=cX,
     # i, j and k give the vertices of triangles
-    i=X.Tris[:,0], j=X.Tris[:,1], k=X.Tris[:,2],
+    k=X.Tris[:,0], i=X.Tris[:,1], j=X.Tris[:,2],
     showscale=False,
     lighting=dict(ambient=ambient)
 ),
@@ -177,11 +169,11 @@ fig.add_trace(
 #plot Y
 fig.add_trace(
     go.Mesh3d(
-    x=Y.X[:,0], y=Y.X[:,1], z=Y.X[:,2],
+    y=Y.X[:,0], z=Y.X[:,1], x=Y.X[:,2],
     # Intensity of each vertex, which will be interpolated and color-coded
     intensity=cY,
     # i, j and k give the vertices of triangles
-    i=Y.Tris[:,0], j=Y.Tris[:,1], k=Y.Tris[:,2],
+    k=Y.Tris[:,0], i=Y.Tris[:,1], j=Y.Tris[:,2],
     showscale=False,
     lighting=dict(ambient=ambient)
 ),
