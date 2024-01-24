@@ -189,7 +189,7 @@ fig.add_trace(
 )
 
 fig.update_scenes(aspectmode='data')
-fig.update_layout(showlegend=False,width=width,height=height)
+fig.update_layout(showlegend=False)  #  ,width=width,height=height)
 
 fig = go.FigureWidget(fig)
 fig.show()
