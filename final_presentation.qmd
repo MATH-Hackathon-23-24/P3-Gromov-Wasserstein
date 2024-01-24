@@ -17,6 +17,7 @@ format:
         theme: default
         html_math_method: mathjax
         incremental: true
+        logo: figs/MATHPLUS-Logo-retina.png
 execute: 
   echo: false
 jupyter: python3
@@ -32,7 +33,6 @@ import trimesh
 import open3d as o3d
 import utils
 from utils import GM
-# from tqdm import trange
 
 #plotting
 import plotly.graph_objects as go
@@ -76,6 +76,7 @@ for path_to_obj in pathlist:
 
 
 ```{python}
+
 #choose gm-spaces
 X = GM_short(meshes_animals[0])
 Y = GM_short(meshes_animals[1])
@@ -87,12 +88,18 @@ P,log = ot.gromov.gromov_wasserstein(X.g,Y.g,X.xi,Y.xi,log=True)
 
 # Intro
 
-## Theory
+- The Gromov–Wasserstein (GW) distance is an optimal transport-based metric,
+  - allows for embedding-free comparisons and
+  - matchings of gauged measure spaces (like 3d shapes)
+
+- We use several generalizations of (GW) to solve the task of classifying 3d
+Euclidean shapes.
 
 ## Wasserstein Distance
 
 - Let $X = Y = \mathbb{R}^d$, $\mu \in \mathcal{P}_2(X)$, $\nu \in
 \mathcal{P}_2(Y)$.
+
 - Let $\Pi(\mu, \nu) \subset \mathcal{P}(X \times Y)$ denote the set of all
 _transport plans_ $\pi$ with marginal $\mu$, $\nu$, i.e.
 $$
@@ -103,8 +110,6 @@ $$
 $$
 for all measurable $A \subset X$, $B \subset Y$.
 
-## 
-
 - Extremely computationally expensive
 
 - Sensitive to orientation
@@ -114,9 +119,9 @@ for all measurable $A \subset X$, $B \subset Y$.
 The **Gromov--Wasserstein distance** between $\mathbb{X} = (X,d_X,\mu)$ and
 $\mathbb{Y} = (Y,d_Y,\nu)$ is given by:
 
-::: {.smaller}
+:::{style="font-size:75%;"}
 $$
-\operatorname{GW}(\mathbb{X},\mathbb{Y}) := \displaystyle \inf_{\pi \in \Pi(\mu,\nu)} \biggl(\int_{(X \times Y)^2} \bigl(d_X(x,x') - d_Y(y,y')\bigr)^2 \mathrm{d}x \, \pi(x,y) \mathrm{d}x \, \pi(x',y') \biggr)^\frac{1}{2}.
+\operatorname{GW}(\mathbb{X},\mathbb{Y}) := \inf_{\pi \in \Pi(\mu,\nu)} \biggl(\int_{(X \times Y)^2} \bigl(d_X(x,x') - d_Y(y,y')\bigr)^2 \mathrm{d}x \, \pi(x,y) \mathrm{d}x \, \pi(x',y') \biggr)^\frac{1}{2}.
 $$
 
 :::
@@ -135,11 +140,8 @@ distance.
 
 ## The dataset
 
-show some models of 2d & 3d
-
-## Some transport plans
-
 ```{python}
+
 width = 500
 height = 500
 ambient = 0.4
@@ -205,6 +207,9 @@ nodes.
 
 # Results
 
+- Computing GW distances and then using Multidimensional Scaling (MDS) to embedd into 3d space.
+
+. . .
 
 ```{python}
 m_bodies = np.load("aggregated_distances_lgw_sqd500.npy")
@@ -221,7 +226,7 @@ mds = manifold.MDS(
 pos = mds.fit(avg).embedding_
 kmeans = cluster.KMeans(n_clusters=8, random_state=0, n_init="auto").fit(pos)
 # plt.scatter(pos[:, 0], pos[:, 1], c = kmeans.labels_)
-px.scatter_3d(x=pos[:, 0], y=pos[:, 1], z=pos[:, 2], color = kmeans.labels_)
+px.scatter_3d(x=pos[:, 0], y=pos[:, 1], z=pos[:, 2], color = kmeans.labels_, hover_name=animals_nd[kmeans.labels_])
 ```
 
 ## Classification results
