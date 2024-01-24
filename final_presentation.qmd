@@ -140,17 +140,6 @@ distance.
 
 ## The dataset
 
-![Some other example shapes from Mesh Data from Deformation Transfer for Triangle Meshes (Summer, Popovic)](figs/animal_collection.png)
-
-## Drawbacks of full Gromov-Wasserstein
-
-- Very accurate but extremely computationally expensive
-
-- Takes around 1 hr 5 min to compute pairwise G-W distance between 83 figures with 500
-nodes.
-
-## Transport plan
-
 ```{python}
 
 width = 500
@@ -200,6 +189,17 @@ fig = go.FigureWidget(fig)
 fig.show()
 ```
 
+##
+
+![Some other example shapes from Mesh Data from Deformation Transfer for Triangle Meshes (Summer, Popovic)](figs/animal_collection.png)
+
+## Drawbacks of full Gromov-Wasserstein
+
+- Very accurate but extremely computationally expensive
+
+- Takes around 1 hr 5 min to compute pairwise G-W distance between 83 figures with 500
+nodes.
+
 
 ## Taming computational complexity
 
@@ -231,7 +231,7 @@ mds = manifold.MDS(
 pos = mds.fit(avg).embedding_
 kmeans = cluster.KMeans(n_clusters=8, random_state=0, n_init="auto").fit(pos)
 # plt.scatter(pos[:, 0], pos[:, 1], c = kmeans.labels_)
-px.scatter_3d(x=pos[:, 0], y=pos[:, 1], z=pos[:, 2], color = kmeans.labels_, hover_name=animals_nd[kmeans.labels_])
+px.scatter_3d(x=pos[:, 0], y=pos[:, 1], z=pos[:, 2], color = kmeans.labels_, hover_name=names)
 ```
 
 ## Classification results
