@@ -15,9 +15,13 @@ format:
     revealjs:
         theme: default
         html_math_method: mathjax
+        incremental: true
 execute: 
   echo: false
 jupyter: python3
+project:
+  type: default
+  output-dir: docs
 ---
 
 ```{python}
@@ -26,7 +30,7 @@ import matplotlib.pyplot as plt
 from sklearn import manifold, cluster
 import plotly.express as px
 import ot
-import trimesh
+# import trimesh
 # import open3d as o3d
 import utils
 from utils import GM
@@ -98,7 +102,19 @@ print("GW Transport costs: {0}".format(log["gw_dist"]))
 
 ## Wasserstein Distance
 
-...
+- Let $X = Y = \mathbb{R}^d$, $\mu \in \mathcal{P}_2(X)$, $\nu \in
+\mathcal{P}_2(Y)$.
+- Let $\Pi(\mu, \nu) \subset \mathcal{P}(X \times Y)$ denote the set of all
+_transport plans_ $\pi$ with marginal $\mu$, $\nu$, i.e.
+$$
+\begin{align*}
+(P_X)_\# \pi (A) &:= \pi(P_X^{-1} A) = \pi(A \times Y) = \mu(A) \\
+(P_Y)_\# \pi(B) &= \nu(B)
+\end{align*}
+$$
+for all measurable $A \subset X$, $B \subset Y$.
+
+## 
 
 - Extremely computationally expensive
 
@@ -106,7 +122,11 @@ print("GW Transport costs: {0}".format(log["gw_dist"]))
 
 ## Gromov-Wasserstein Distance
 
-...
+The **Gromov--Wasserstein distance** between $\mathbb{X} = (X,d_X,\mu)$ and
+$\mathbb{Y} = (Y,d_Y,\nu)$ is given by:
+$$
+\operatorname{GW}(\mathbb{X},\mathbb{Y}) := \inf_{\pi \in \Pi(\mu,\nu)} \biggl(\int_{(X \times Y)^2} \bigl(d_X(x,x') - d_Y(y,y')\bigr)^2 \mathrm{d}x \, \pi(x,y) \mathrm{d}x \, \pi(x',y') \biggr)^\frac{1}{2}.
+$$
 
 - Dependent only on the geometry of the object
     - e.g. orientation invariant, pose invariant (somewhat)
