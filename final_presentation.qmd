@@ -140,6 +140,17 @@ distance.
 
 ## The dataset
 
+![Some other example shapes from Mesh Data from Deformation Transfer for Triangle Meshes (Summer, Popovic)](figs/animal_collection.png)
+
+## Drawbacks of full Gromov-Wasserstein
+
+- Very accurate but extremely computationally expensive
+
+- Takes around 1 hr 5 min to compute pairwise G-W distance between 83 figures with 500
+nodes.
+
+## Transport plan
+
 ```{python}
 
 width = 500
@@ -188,17 +199,6 @@ fig.update_layout(showlegend=False)  #  ,width=width,height=height)
 fig = go.FigureWidget(fig)
 fig.show()
 ```
-
-##
-
-![Some other example shapes from Mesh Data from Deformation Transfer for Triangle Meshes (Summer, Popovic)](figs/animal_collection.png)
-
-## Drawbacks of full Gromov-Wasserstein
-
-- Very accurate but extremely computationally expensive
-
-- Takes around 1 hr 5 min to compute pairwise G-W distance between 83 figures with 500
-nodes.
 
 
 ## Taming computational complexity
