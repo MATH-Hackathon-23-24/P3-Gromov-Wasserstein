@@ -30,8 +30,8 @@ import matplotlib.pyplot as plt
 from sklearn import manifold, cluster
 import plotly.express as px
 import ot
-# import trimesh
-# import open3d as o3d
+import trimesh
+import open3d as o3d
 import utils
 from utils import GM
 from utils_lgw import lgw_procedure
@@ -59,7 +59,7 @@ def GM_short(mesh):
 
 
 ```{python}
-sqd = 1000 #parameter for mesh simplification
+sqd = 1000 #  parameter for mesh simplification
 
 #LOAD ANIMALS dataset
 animals = ['camel', 'cat', 'elephant', 'face', 'flamingo', 'head', 'horse', 'lion']
@@ -147,6 +147,10 @@ show some models of 2d & 3d
 ## Some transport plans
 
 ```{python}
+width = 500
+height = 500
+ambient = 0.4
+
 #colour-code X
 cX = np.linalg.norm(X.X - np.min(X.X),axis=1)
 #colour-code Y according to transport P
