@@ -1,5 +1,7 @@
 # Gromov–Wasserstein-Based Shape, Graph and Image Analysis
 
+![](hackathon_summary.png)
+
 The Gromov–Wasserstein (GW) distance is an optimal transport-based metric, 
 which allows for embedding-free comparisons 
 and matchings of gauged measure spaces like 3d Euclidean shapes. 
